@@ -1,0 +1,78 @@
+﻿<<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Formulario de contacto</title>
+  <link rel="stylesheet" href="inc/style.css">
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.3.1.min.js"></script>
+</head>
+<body>
+<<section>
+  <form id="contact-form" name="contact-form" method="post" action="javascript:void(0);">
+<input type="text" name="name" id="name" placeholder="Nombre completo"  required/>
+<input type="text" name="email" id="email" placeholder="Email" required />
+<input type="text" name="phone" id="phone" placeholder="Teléfono"  required/>
+<input type="text" name="guvenlikKodu" id="guvenlikKodu" placeholder="Ingresa el código de la imagen" required />
+<img style="margin-top: 10px; border: 10px solid #fff;" src="inc/captcha.php" />
+ 
+  <textarea style="text-transform: none; display: block; font-family: Arial; height: 303px;" id="text" name="text" id="text" cols="35" rows="8" placeholder="Escribe tu mensaje..."  required/></textarea>
+<input class="btn btn-primary btn-block" type="submit" onclick="kontrolet()" value="ENVIAR MENSAJE AHORA" />
+  </form>
+  <div style="margin-top: 20px" id="send">
+</section>
+<script type="text/javascript"> 
+      function gostergizle()
+      {
+      $("div#container").show(100); 
+      }
+      function sendmessage(){ 
+      var veriler = $('#contact-form').serialize();
+      $.ajax({ 
+      type: "POST", 
+      url: "inc/send.php", 
+      data: veriler, 
+      success:function(cevap){ 
+      $("#send").html(""+cevap); 
+      $("div#container").hide(100); 
+      } 
+      })}; 
+      function formReset(id) {
+      $('#'+id).each(function(){
+      this.reset();
+      });
+      }
+      function kontrolet(){
+        $('input[type="submit"]').attr('disabled','disabled');
+        var name=$('#name').val();
+      name=jQuery.trim(name);
+    var email=$('#email').val();
+      email=jQuery.trim(email);
+    var mess=$('#text').val();
+      mess=jQuery.trim(mess);
+    var tel=$('#phone').val();
+      tel=jQuery.trim(tel);
+        var guvenlikKodu=$('#guvenlikKodu').val();
+      guvenlikKodu=jQuery.trim(guvenlikKodu);        
+        
+      if(name==''){
+      alert("Verifica tu nombre");
+      }   
+      else if(email==''){
+        alert("Verifica tu correo");
+        }
+            else if (tel==''){
+        alert("Verifica tu teléfono");
+        }
+        else if(mess==''){
+        alert("Verifica tu mensaje");
+        }
+            else if (guvenlikKodu==''){
+        alert("¡Ingresa el código de la imagen!");
+        }
+
+      else { sendmessage() } 
+        }
+</script>
+</body>
+</html>
